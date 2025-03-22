@@ -31,8 +31,25 @@ def get_user(db: sqlite3.Connection, name: str) -> User:
     finally:
         cur.close()
 
+def get_all_users(db: sqlite3.Connection) -> list[User]:
+    try:
+        cur = db.cursor()
+        cur.execute("SELECT * FROM USER")
+        rows = cur.fetchall()
 
-def get_user(db: sqlite3.Connection, id: int) -> User:
+        users = []
+        for row in rows:
+            users.append(User(row[0], row[1]))
+        return users
+
+    except sqlite3.DatabaseError as e:
+        print(f"Error querying database: {e}")
+        return []
+    finally:
+        cur.close()
+
+
+def get_user_by_id(db: sqlite3.Connection, id: int) -> User:
     try:
         cur = db.cursor()
         cur.execute("SELECT * FROM USER WHERE ID = ?", (id,))
