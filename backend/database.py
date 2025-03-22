@@ -217,7 +217,7 @@ def get_usergroup(db: sqlite3.Connection, name: str) -> UserGroup:
 
         users = []
         for row in rows:
-            user = get_user(db, row[1])
+            user = get_user_by_id(db, row[1])
             users.append(user)
 
         return UserGroup(group_row[0], group_row[1], users)
