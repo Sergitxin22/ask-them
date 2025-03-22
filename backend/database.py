@@ -129,6 +129,25 @@ def get_question(db: sqlite3.Connection, name: str) -> Question:
         cur.close()
 
 
+def get_question_by_id(db: sqlite3.Connection, id: int) -> Question:
+    try:
+        cur = db.cursor()
+        cur.execute("SELECT * FROM QUESTION WHERE ID = ?", (id,))
+        row = cur.fetchone()
+
+        if row is None:
+            return None
+        options = get_options(db, row[0])
+        return Question(row[0], row[1], row[2], options)
+    
+    except sqlite3.DatabaseError as e:
+        print(f"Error querying database: {e}")
+        return None
+    finally:
+        cur.close()
+
+
+
 def insert_response(db: sqlite3.Connection, user_id: int, question_id: int, option_id: int):
     try:
         cur = db.cursor()
