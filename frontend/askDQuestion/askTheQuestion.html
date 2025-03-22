@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Preguntas</title>
+    <style>
+        :root {
+            --primary: #1a766f;
+            --background: #1a766f;
+            --text: #ffffff;
+            --light: #ffffff;
+            --option-bg: #ecf2ee;
+            --option-selected: #d6e6db;
+            --button-bg: #777777;
+            --button-active: #555555;
+            --cream-bg: #f8f2e5;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--cream-bg);
+            color: var(--text);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: var(--light);
+            padding: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-time {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .menu-icon {
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+
+        .calendar-icon {
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+        
+        .next-question-info {
+            background-color: var(--primary);
+            color: var(--light);
+            padding: 0.5rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .question-container {
+            background-color: var(--primary);
+            color: var(--light);
+            padding: 2rem 1rem 3rem 1rem;
+            width: 100%;
+            text-align: center;
+            position: relative;
+        }
+
+        .wave-separator {
+            height: 50px;
+            margin-top: -50px;
+            width: 100%;
+            background-color: var(--primary);
+            border-bottom-left-radius: 50% 100%;
+            border-bottom-right-radius: 50% 100%;
+            z-index: 1;
+        }
+        
+        .question {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+            padding: 0 1rem;
+            text-align: center;
+        }
+        
+        .options-container {
+            padding: 1rem;
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: 10px;
+            z-index: 2;
+            position: relative;
+        }
+        
+        .option {
+            background-color: var(--option-bg);
+            border-radius: 15px;
+            padding: 1rem;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            text-align: center;
+            color: #000000;
+        }
+        
+        .option.selected {
+            background-color: var(--option-selected);
+        }
+        
+        .respond-button {
+            background-color: var(--button-bg);
+            color: var(--light);
+            border: none;
+            border-radius: 25px;
+            padding: 0.8rem 2rem;
+            font-size: 1.2rem;
+            margin: 1rem auto;
+            cursor: pointer;
+            display: block;
+        }
+
+        .respond-button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        
+        .respond-button.active {
+            background-color: var(--button-active);
+        }
+        
+        footer {
+            background-color: var(--cream-bg);
+            padding: 1rem 0.5rem;
+            display: flex;
+            justify-content: space-around;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .footer-icon {
+            text-align: center;
+            color: var(--primary);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .footer-icon:hover {
+            transform: scale(1.1);
+        }
+        
+        .footer-icon i {
+            font-size: 1.5rem;
+            margin-bottom: 0.3rem;
+            display: block;
+        }
+        
+        .results-card {
+            background-color: var(--light);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            margin: 2rem auto;
+            display: none;
+            color: #333333;
+            margin-bottom: 5rem;
+        }
+        
+        .results-title {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .result-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .result-name {
+            flex: 1;
+            text-align: left;
+            font-size: 1.2rem;
+        }
+        
+        .result-bar-container {
+            flex: 2;
+            height: 30px;
+            background-color: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 0 1rem;
+        }
+        
+        .result-bar {
+            height: 100%;
+            background-color: var(--primary);
+            border-radius: 15px;
+        }
+        
+        .result-percentage {
+            flex: 0 0 50px;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .next-question {
+            background-color: var(--primary);
+            color: var(--light);
+            border: none;
+            border-radius: 8px;
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            margin-top: 2rem;
+            cursor: pointer;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 10;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: var(--light);
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 80%;
+            width: 400px;
+            color: #333;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .modal-close {
+            background-color: var(--primary);
+            color: var(--light);
+            border: none;
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            margin-top: 1rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="menu-icon">≡</div>
+        <div class="header-time">21:26</div>
+        <div class="calendar-icon">📅</div>
+    </header>
+
+    <div class="next-question-info">
+        Nueva pregunta en 21:33:20
+    </div>
+
+    <main>
+        <div id="questionCard">
+            <div class="question-container">
+                <div class="question" id="questionText">
+                    Si todos ustedes tuvieran opiniones diferentes en una discusión, ¿quién sería el más probable de mantener su punto de vista con convicción, pase lo que pase?
+                </div>
+            </div>
+            <div class="wave-separator"></div>
+
+            <div class="options-container" id="optionsContainer">
+                <div class="option" data-id="1" onclick="selectOption(this)">Bruce Wayne</div>
+                <div class="option" data-id="2" onclick="selectOption(this)">Scott Pilgrim</div>
+                <div class="option" data-id="3" onclick="selectOption(this)">Xabi</div>
+            </div>
+
+            <button class="respond-button" id="submitBtn" disabled onclick="showResults()">Responder</button>
+        </div>
+        
+        <div class="results-card" id="resultsCard">
+            <div class="results-title">Resultados</div>
+            <div class="result-item">
+                <div class="result-name">Scott Pilgrim</div>
+                <div class="result-bar-container">
+                    <div class="result-bar" style="width: 35%;"></div>
+                </div>
+                <div class="result-percentage">35%</div>
+            </div>
+            <div class="result-item">
+                <div class="result-name">Bruce Wayne</div>
+                <div class="result-bar-container">
+                    <div class="result-bar" style="width: 25%;"></div>
+                </div>
+                <div class="result-percentage">25%</div>
+            </div>
+            <div class="result-item">
+                <div class="result-name">xabi</div>
+                <div class="result-bar-container">
+                    <div class="result-bar" style="width: 40%;"></div>
+                </div>
+                <div class="result-percentage">40%</div>
+            </div>
+            <button class="next-question" onclick="nextQuestion()">Siguiente pregunta</button>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-icon" onclick="openModal('Votación')">
+            <i>📊</i>
+            Votación
+        </div>
+        <div class="footer-icon" onclick="openModal('Paquetes')">
+            <i>📦</i>
+            Paquetes
+        </div>
+        <div class="footer-icon" onclick="openModal('Información')">
+            <i>👥</i>
+            Información
+        </div>
+        <div class="footer-icon" onclick="openModal('Extras')">
+            <i>⚙️</i>
+            Extras
+        </div>
+    </footer>
+    
+    <!-- Modal for footer interactions -->
+    <div class="modal" id="infoModal">
+        <div class="modal-content">
+            <div class="modal-title" id="modalTitle">Información</div>
+            <div id="modalContent">Contenido de la sección seleccionada.</div>
+            <button class="modal-close" onclick="closeModal()">Cerrar</button>
+        </div>
+    </div>
+
+    <script>
+        // Sample questions
+        const questions = [
+            {
+                question: "Si todos ustedes tuvieran opiniones diferentes en una discusión, ¿quién sería el más probable de mantener su punto de vista con convicción, pase lo que pase?",
+                options: ["Scott Pilgrim", "Bruce Wayne", "xabi"],
+                results: [35, 25, 40] // Percentages
+            },
+            {
+                question: "¿A quien abandonarias en una isla desierta?",
+                options: ["Scott Pilgrim", "Bruce Wayne", "xabi"],
+                results: [55, 20, 25]
+            },
+            {
+                question: "¿Quien cocina mejor?",
+                options: ["Scott Pilgrim", "Bruce Wayne", "xabi"],
+                results: [30, 45, 25]
+            }
+        ];
+        
+        let currentQuestion = 0;
+        let selectedOption = null;
+        
+        function selectOption(element) {
+            // Remove selected class from all options
+            const options = document.querySelectorAll('.option');
+            options.forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked option
+            element.classList.add('selected');
+            selectedOption = element.getAttribute('data-id');
+            
+            // Enable submit button
+            document.getElementById('submitBtn').disabled = false;
+            document.getElementById('submitBtn').classList.add('active');
+        }
+        
+        function showResults() {
+            // Hide question card and show results card
+            document.getElementById('questionCard').style.display = 'none';
+            document.getElementById('resultsCard').style.display = 'block';
+            
+            // Update the results based on current question
+            const question = questions[currentQuestion];
+            const resultItems = document.querySelectorAll('.result-item');
+            
+            question.options.forEach((option, index) => {
+                if (resultItems[index]) {
+                    const nameElement = resultItems[index].querySelector('.result-name');
+                    const barElement = resultItems[index].querySelector('.result-bar');
+                    const percentageElement = resultItems[index].querySelector('.result-percentage');
+                    
+                    nameElement.textContent = option;
+                    barElement.style.width = `${question.results[index]}%`;
+                    percentageElement.textContent = `${question.results[index]}%`;
+                }
+            });
+        }
+        
+        function nextQuestion() {
+            // Increment question index
+            currentQuestion = (currentQuestion + 1) % questions.length;
+            
+            // Update question and options
+            const question = questions[currentQuestion];
+            document.getElementById('questionText').textContent = question.question;
+            
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+            
+            question.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                optionElement.setAttribute('data-id', index + 1);
+                optionElement.textContent = option;
+                optionElement.onclick = function() { selectOption(this); };
+                optionsContainer.appendChild(optionElement);
+            });
+            
+            // Reset selected option and disable submit button
+            selectedOption = null;
+            document.getElementById('submitBtn').disabled = true;
+            document.getElementById('submitBtn').classList.remove('active');
+            
+            // Show question card and hide results card
+            document.getElementById('questionCard').style.display = 'block';
+            document.getElementById('resultsCard').style.display = 'none';
+        }
+        
+        function openModal(section) {
+            const modal = document.getElementById('infoModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalTitle.textContent = section;
+            
+            // Set content based on section
+            switch(section) {
+                case 'Votación':
+                    modalContent.textContent = 'Aquí puedes ver las estadísticas de votación y tu historial de participación.';
+                    break;
+                case 'Paquetes':
+                    modalContent.textContent = 'Explora paquetes de preguntas temáticas disponibles para jugar con tus amigos.';
+                    break;
+                case 'Información':
+                    modalContent.textContent = 'Información sobre los participantes y amigos conectados al juego.';
+                    break;
+                case 'Extras':
+                    modalContent.textContent = 'Configuración adicional, temas, y opciones para personalizar tu experiencia.';
+                    break;
+                default:
+                    modalContent.textContent = 'Contenido de la sección seleccionada.';
+            }
+            
+            modal.style.display = 'flex';
+        }
+        
+        function closeModal() {
+            document.getElementById('infoModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

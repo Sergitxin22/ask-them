@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ask Them - Main Menu</title>
+    <style>
+        :root {
+            --primary: #4a86e8;
+            --primary-dark: #3a76d8;
+            --secondary: #6d9eeb;
+            --background: #f5f5f5;
+            --card-bg: #ffffff;
+            --text: #333333;
+            --light: #ffffff;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --border: #e0e0e0;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: var(--light);
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 5px var(--shadow);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin: 0;
+        }
+        
+        .profile-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+        
+        .profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--card-bg);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--light);
+        }
+        
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .username {
+            font-weight: bold;
+            font-size: 1rem;
+        }
+        
+        main {
+            padding: 80px 1rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin: 1.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        .groups-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .group-card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px var(--shadow);
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .group-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px var(--shadow);
+        }
+        
+        .group-header {
+            height: 100px;
+            background-color: var(--secondary);
+            position: relative;
+        }
+        
+        .group-members {
+            position: absolute;
+            bottom: -20px;
+            left: 20px;
+            display: flex;
+        }
+        
+        .member-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--card-bg);
+            border: 2px solid var(--card-bg);
+            margin-right: -10px;
+            overflow: hidden;
+        }
+        
+        .member-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .group-content {
+            padding: 30px 20px 20px;
+        }
+        
+        .group-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .group-info {
+            font-size: 0.9rem;
+            color: #666;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 1rem;
+            margin-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+        
+        .action-btn {
+            background-color: var(--primary);
+            color: var(--light);
+            border: none;
+            border-radius: 5px;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        
+        .action-btn:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .action-btn.secondary {
+            background-color: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+        
+        .action-btn.secondary:hover {
+            background-color: rgba(74, 134, 232, 0.1);
+        }
+        
+        .create-group {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px var(--shadow);
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 250px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .create-group:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px var(--shadow);
+        }
+        
+        .create-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Profile modal styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            display: none;
+        }
+        
+        .modal-content {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2rem;
+            position: relative;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .profile-editor {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .profile-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background-color: var(--secondary);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .profile-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .change-photo {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            text-align: center;
+            padding: 0.3rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+        
+        .avatar-options {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .avatar-option {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        
+        .avatar-option.selected {
+            border-color: var(--primary);
+        }
+        
+        .avatar-option img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .form-group {
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .save-profile {
+            background-color: var(--primary);
+            color: var(--light);
+            border: none;
+            border-radius: 5px;
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            margin-top: 1rem;
+            width: 100%;
+        }
+        
+        .save-profile:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        @media (max-width: 768px) {
+            .groups-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .profile-pic {
+                width: 35px;
+                height: 35px;
+            }
+            
+            .username {
+                font-size: 0.9rem;
+            }
+            
+            .avatar-options {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="logo">Ask Them</h1>
+        <div class="profile-container" onclick="openProfileModal()">
+            <div class="profile-pic">
+                <img src="/api/placeholder/40/40" alt="Profile" id="headerProfilePic">
+            </div>
+            <span class="username" id="headerUsername">YourName</span>
+        </div>
+    </header>
+    
+    <main>
+        <h2 class="section-title">Your Friend Groups</h2>
+        <div class="groups-container">
+            <!-- Group 1 -->
+            <div class="group-card" onclick="navigateToGroup('classmates')">
+                <div class="group-header" style="background-color: #6d9eeb;">
+                    <div class="group-members">
+                        <div class="member-icon"><img src="/api/placeholder/40/40" alt="Member"></div>
+                        <div class="member-icon"><img src="/api/placeholder/40/40" alt="Member"></div>
+                        <div class="member-icon"><img src="/api/placeholder/40/40" alt="Member"></div>
+                        <div class="member-icon"><img src="/api/placeholder/40/40" alt="Member"></div>
+                    </div>
+                </div>
+                <div class="group-content">
+                    <h3 class="group-name">Classmates</h3>
+                    <div class="group-info">
+                        <span>5 members</span>
+                        <span>12 questions</span>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="action-btn">Play</button>
+                        <button class="action-btn secondary">Add Question</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Group 2 -->
+            <div class="group-card" onclick="navigateToGroup('workout-buddies')">
+                <div class="group-header" style="background-color: #93c47d;">
+                    <div class="group-members">
+                        <div class="member-icon"><img src="/api/placeholder/40/40" alt="Member"></div>
+                        <div class="member-icon"><img src="/api/placeholder/40/40" alt="Member"></div>
+                        <div class="member-icon"><img src="/api/placeholder/40/40" alt="Member"></div>
+                    </div>
+                </div>
+                <div class="group-content">
+                    <h3 class="group-name">Workout Buddies</h3>
+                    <div class="group-info">
+                        <span>3 members</span>
+                        <span>8 questions</span>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="action-btn">Play</button>
+                        <button class="action-btn secondary">Add Question</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Group 3 -->
+            <div class="group-card" onclick="navigateToGroup('gaming-crew')">
+                <div class="group-header" style="background-color: #ff9900;">
+                    <div class="group-members">
+                        <div class="member-icon"><img src="/api/placeholder/40/40" alt="Member"></div>
+                        <div class="member-icon"><img src="/api/placeholder/40/40" alt="Member"></div>
+                        <div class="member-icon"><img src="/api/placeholder/40/40" alt="Member"></div>
+                        <div class="member-icon"><img src="/api/placeholder/40/40" alt="Member"></div>
+                        <div class="member-icon"><img src="/api/placeholder/40/40" alt="Member"></div>
+                    </div>
+                </div>
+                <div class="group-content">
+                    <h3 class="group-name">Gaming Crew</h3>
+                    <div class="group-info">
+                        <span>6 members</span>
+                        <span>15 questions</span>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="action-btn">Play</button>
+                        <button class="action-btn secondary">Add Question</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Create New Group -->
+            <div class="create-group" onclick="createNewGroup()">
+                <div class="create-icon">+</div>
+                <h3>Create New Group</h3>
+                <p>Add friends and start the fun!</p>
+            </div>
+        </div>
+        
+        <h2 class="section-title">Popular Groups</h2>
+        <div class="groups-container">
+            <!-- Popular Group 1 -->
+            <div class="group-card" onclick="navigateToGroup('superheroes')">
+                <div class="group-header" style="background-color: #e06666;">
+                    <div class="group-members">
+                        <div class="member-icon"><img src="/api/placeholder/40/40" alt="Member"></div>
+                        <div class="member-icon"><img src="/api/placeholder/40/40" alt="Member"></div>
+                        <div class="member-icon"><img src="/api/placeholder/40/40" alt="Member"></div>
+                    </div>
+                </div>
+                <div class="group-content">
+                    <h3 class="group-name">Superheroes</h3>
+                    <div class="group-info">
+                        <span>Public Group</span>
+                        <span>25 questions</span>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="action-btn">Play</button>
+                        <button class="action-btn secondary">Add Question</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Popular Group 2 -->
+            <div class="group-card" onclick="navigateToGroup('celebrities')">
+                <div class="group-header" style="background-color: #9fc5e8;">
+                    <div class="group-members">
+                        <div class="member-icon"><img src="/api/placeholder/40/40" alt="Member"></div>
+                        <div class="member-icon"><img src="/api/placeholder/40/40" alt="Member"></div>
+                        <div class="member-icon"><img src="/api/placeholder/40/40" alt="Member"></div>
+                    </div>
+                </div>
+                <div class="group-content">
+                    <h3 class="group-name">Celebrities</h3>
+                    <div class="group-info">
+                        <span>Public Group</span>
+                        <span>32 questions</span>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="action-btn">Play</button>
+                        <button class="action-btn secondary">Add Question</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Profile Modal -->
+    <div class="modal-overlay" id="profileModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeProfileModal()">×</button>
+            <h2 class="modal-title">Edit Profile</h2>
+            
+            <div class="profile-editor">
+                <div class="profile-preview">
+                    <img src="/api/placeholder/120/120" alt="Profile" id="profilePreview">
+                    <div class="change-photo">Change Avatar</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" value="YourName">
+                </div>
+                
+                <h3>Choose an Avatar</h3>
+                <div class="avatar-options">
+                    <div class="avatar-option selected" onclick="selectAvatar(0)">
+                        <img src="/api/placeholder/70/70?1" alt="Avatar 1">
+                    </div>
+                    <div class="avatar-option" onclick="selectAvatar(1)">
+                        <img src="/api/placeholder/70/70?2" alt="Avatar 2">
+                    </div>
+                    <div class="avatar-option" onclick="selectAvatar(2)">
+                        <img src="/api/placeholder/70/70?3" alt="Avatar 3">
+                    </div>
+                    <div class="avatar-option" onclick="selectAvatar(3)">
+                        <img src="/api/placeholder/70/70?4" alt="Avatar 4">
+                    </div>
+                    <div class="avatar-option" onclick="selectAvatar(4)">
+                        <img src="/api/placeholder/70/70?5" alt="Avatar 5">
+                    </div>
+                    <div class="avatar-option" onclick="selectAvatar(5)">
+                        <img src="/api/placeholder/70/70?6" alt="Avatar 6">
+                    </div>
+                    <div class="avatar-option" onclick="selectAvatar(6)">
+                        <img src="/api/placeholder/70/70?7" alt="Avatar 7">
+                    </div>
+                    <div class="avatar-option" onclick="selectAvatar(7)">
+                        <img src="/api/placeholder/70/70?8" alt="Avatar 8">
+                    </div>
+                </div>
+                
+                <button class="save-profile" onclick="saveProfile()">Save Profile</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Current user profile
+        let userProfile = {
+            username: "YourName",
+            avatar: 0, // Index of the selected avatar
+            avatarUrls: [
+                "/api/placeholder/120/120?1",
+                "/api/placeholder/120/120?2",
+                "/api/placeholder/120/120?3",
+                "/api/placeholder/120/120?4",
+                "/api/placeholder/120/120?5",
+                "/api/placeholder/120/120?6",
+                "/api/placeholder/120/120?7",
+                "/api/placeholder/120/120?8"
+            ]
+        };
+        
+        // Initialize profile
+        function initProfile() {
+            // Load profile from localStorage if available
+            const savedProfile = localStorage.getItem('askThemProfile');
+            if (savedProfile) {
+                userProfile = JSON.parse(savedProfile);
+                updateProfileDisplay();
+            }
+        }
+        
+        // Update profile display in header and modal
+        function updateProfileDisplay() {
+            document.getElementById('headerUsername').textContent = userProfile.username;
+            document.getElementById('headerProfilePic').src = userProfile.avatarUrls[userProfile.avatar];
+            document.getElementById('username').value = userProfile.username;
+            document.getElementById('profilePreview').src = userProfile.avatarUrls[userProfile.avatar];
+            
+            // Update selected avatar in the options
+            const avatarOptions = document.querySelectorAll('.avatar-option');
+            avatarOptions.forEach((option, index) => {
+                if (index === userProfile.avatar) {
+                    option.classList.add('selected');
+                } else {
+                    option.classList.remove('selected');
+                }
+            });
+        }
+        
+        // Select avatar
+        function selectAvatar(index) {
+            const avatarOptions = document.querySelectorAll('.avatar-option');
+            avatarOptions.forEach((option, i) => {
+                if (i === index) {
+                    option.classList.add('selected');
+                } else {
+                    option.classList.remove('selected');
+                }
+            });
+            
+            document.getElementById('profilePreview').src = userProfile.avatarUrls[index];
+        }
+        
+        // Save profile
+        function saveProfile() {
+            const newUsername = document.getElementById('username').value;
+            const selectedAvatar = document.querySelector('.avatar-option.selected');
+            const avatarIndex = Array.from(document.querySelectorAll('.avatar-option')).indexOf(selectedAvatar);
+            
+            userProfile.username = newUsername;
+            userProfile.avatar = avatarIndex;
+            
+            // Save to localStorage
+            localStorage.setItem('askThemProfile', JSON.stringify(userProfile));
+            
+            // Update display
+            updateProfileDisplay();
+            
+            // Close modal
+            closeProfileModal();
+        }
+        
+        // Open profile modal
+        function openProfileModal() {
+            document.getElementById('profileModal').style.display = 'flex';
+        }
+        
+        // Close profile modal
+        function closeProfileModal() {
+            document.getElementById('profileModal').style.display = 'none';
+        }
+        
+        // Navigate to group
+        function navigateToGroup(groupId) {
+            // In a real app, this would navigate to the group page
+            // For now, just alert the group id
+            alert(`Navigating to group: ${groupId}`);
+            // window.location.href = `/group/${groupId}`;
+        }
+        
+        // Create new group
+        function createNewGroup() {
+            // In a real app, this would open a create group modal
+            alert('Create new group functionality would open here');
+        }
+        
+        // Initialize when page loads
+        window.onload = function() {
+            initProfile();
+        };
+    </script>
+</body>
+</html>
