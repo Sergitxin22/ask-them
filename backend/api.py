@@ -38,3 +38,11 @@ async def query_get_usergroup(name: str):
    usergroup = get_usergroup(db, name)
    db.close()
    return {"group": usergroup}
+
+
+@app.get("home/groups/byUserName/{name}")
+async def query_get_user_usergroups(name: str):
+   db = sqlite3.connect("db/database.db")
+   usergroup = get_user_usergroups(db, name)
+   db.close()
+   return {"group": usergroup}

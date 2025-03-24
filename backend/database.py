@@ -238,6 +238,18 @@ def get_usergroup_id(db: sqlite3.Connection, name: str) -> int:
         cur.close()
 
 
+def get_users_in_group(db: sqlite3.Connection, id: int) -> list[User]:
+        cur = db.cursor
+        cur.execute("SELECT * FROM JOINS WHERE GROUP_ID = ?", (id,))
+        rows = cur.fetchall()
+
+        users = []
+        for row in rows:
+            user = get_user_by_id(db, row[1])
+            users.append(user)
+        return users
+
+
 def get_usergroup(db: sqlite3.Connection, name: str) -> UserGroup:
     try:
         cur = db.cursor()
@@ -248,18 +260,37 @@ def get_usergroup(db: sqlite3.Connection, name: str) -> UserGroup:
             return None
         
         id = get_usergroup_id(db, name)
-        cur.execute("SELECT * FROM JOINS WHERE GROUP_ID = ?", (id,))
-        rows = cur.fetchall()
-
-        users = []
-        for row in rows:
-            user = get_user_by_id(db, row[1])
-            users.append(user)
+        users = get_users_in_group(db, id)
 
         return UserGroup(group_row[0], group_row[1], users)
     
     except sqlite3.DatabaseError as e:
         print(f"Error querying database: {e}")
         return None
+    finally:
+        cur.close()
+
+
+def get_user_usergroups(db: sqlite3.Connection, name: str) -> list[UserGroup]:
+    try:
+        cur = db.cursor()
+        cur.execute(
+            "SELECT USERGROUP.* "
+            "FROM USERGROUP, JOINS, USER "
+            "WHERE USER.NAME = ? AND USER.ID = JOINS.USER_ID", (name,))
+        rows = cur.fetchall()
+
+
+        user_usergroups = []
+        for row in rows:
+            id = get_usergroup_id(db, row[1])
+            users = get_users_in_group(db, id)
+            user_usergroups.append(UserGroup(row[0], row[1], users))
+
+        return user_usergroups
+
+    except sqlite3.DatabaseError as e:
+        print(f"Error querying database: {e}")
+        return []
     finally:
         cur.close()
