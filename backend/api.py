@@ -8,7 +8,7 @@ async def root():
    return {"message": "askthem"}
 
 
-@app.get("home/users/{name}")
+@app.get("/home/users/{name}")
 async def query_get_user(name: str):
    db = sqlite3.connect("db/database.db")
    user = get_user(db, name)
@@ -16,7 +16,7 @@ async def query_get_user(name: str):
    return {"user": user}
 
 
-@app.get("home/users/")
+@app.get("/home/users/")
 async def query_get_all_users():
    db = sqlite3.connect("db/database.db")
    users = get_all_users(db)
@@ -24,7 +24,7 @@ async def query_get_all_users():
    return {"users": users}
 
 
-@app.get("home/questions/{id}")
+@app.get("/home/questions/{id}")
 async def query_get_question(id: int):
    db = sqlite3.connect("db/database.db")
    question = get_question_by_id(db, id)
@@ -32,7 +32,7 @@ async def query_get_question(id: int):
    return {"question": question}
 
 
-@app.get("home/groups/{name}")
+@app.get("/home/groups/{name}")
 async def query_get_usergroup(name: str):
    db = sqlite3.connect("db/database.db")
    usergroup = get_usergroup(db, name)
@@ -40,9 +40,9 @@ async def query_get_usergroup(name: str):
    return {"group": usergroup}
 
 
-@app.get("home/groups/byUserName/{name}")
+@app.get("/home/groups/byUserName/{name}")
 async def query_get_user_usergroups(name: str):
    db = sqlite3.connect("db/database.db")
-   usergroup = get_user_usergroups(db, name)
+   usergroups = get_user_usergroups(db, name)
    db.close()
-   return {"group": usergroup}
+   return {"user_usergroups": usergroups}

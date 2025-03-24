@@ -239,7 +239,7 @@ def get_usergroup_id(db: sqlite3.Connection, name: str) -> int:
 
 
 def get_users_in_group(db: sqlite3.Connection, id: int) -> list[User]:
-        cur = db.cursor
+        cur = db.cursor()
         cur.execute("SELECT * FROM JOINS WHERE GROUP_ID = ?", (id,))
         rows = cur.fetchall()
 
@@ -277,7 +277,9 @@ def get_user_usergroups(db: sqlite3.Connection, name: str) -> list[UserGroup]:
         cur.execute(
             "SELECT USERGROUP.* "
             "FROM USERGROUP, JOINS, USER "
-            "WHERE USER.NAME = ? AND USER.ID = JOINS.USER_ID", (name,))
+            "WHERE USER.NAME = ? "
+            "AND USER.ID = JOINS.USER_ID "
+            "AND USERGROUP.ID = JOINS.GROUP_ID", (name,))
         rows = cur.fetchall()
 
 
