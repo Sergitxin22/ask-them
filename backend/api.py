@@ -33,7 +33,7 @@ async def query_get_question(id: int):
 
 
 @app.get("/groups/{name}")
-async def query_get_question(name: str):
+async def query_get_usergroup(name: str):
    db = sqlite3.connect("db/database.db")
    usergroup = get_usergroup(db, name)
    db.close()
