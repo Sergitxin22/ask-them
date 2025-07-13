@@ -1,0 +1,10 @@
+* {
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #1a7d74;
+}
+
+div {
+  min-height: 100vh;
+}
