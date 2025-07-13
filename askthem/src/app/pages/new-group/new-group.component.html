@@ -1,0 +1,32 @@
+<header>
+  <div class="avatar" style="background-color: #e77c7c;">
+    <div [innerHTML]="'assets/images/users.svg' | svg | async"></div>
+  </div>
+</header>
+
+<div class="content">
+  <h2>Crear nuevo grupo</h2>
+
+  <!-- Paso 1: Nombre del grupo -->
+  <div *ngIf="currentStep === 1" class="step-content">
+    <h3>Nombre del grupo</h3>
+    <p>Por favor, ingresa un nombre para tu nuevo grupo.</p>
+    <input type="text" placeholder="Nombre del grupo" [(ngModel)]="groupName" class="form-input">
+  </div>
+
+  <!-- Paso 2: Nombre del usuario -->
+  <div *ngIf="currentStep === 2" class="step-content">
+    <h3>Tu nombre</h3>
+    <p>¿Cómo quieres que te conozcan los demás en este grupo?</p>
+    <input type="text" placeholder="Tu nombre" [(ngModel)]="userName" class="form-input">
+  </div>
+
+  <div class="form-buttons">
+    <button *ngIf="currentStep > 1" class="btn-secondary" (click)="prevStep()">
+      Atrás
+    </button>
+
+    <button class="btn-primary" [disabled]="!canProceed()" (click)="nextStep()">
+      {{ currentStep < 2 ? 'Siguiente' : 'Crear' }} </button>
+  </div>
+</div>

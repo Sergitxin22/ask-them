@@ -1,0 +1,14 @@
+<header>
+  <div class="avatar" style="background-color: #e77c7c;">
+    <div [innerHTML]="'assets/images/users.svg' | svg | async"></div>
+  </div>
+</header>
+<div class="content">
+  <h2>Unirse a un grupo</h2>
+  <p>¿El enlace de invitación no funciona?</p>
+  <p>Simplemente ingresa el ID del grupo en el campo a continuación para enviar una solicitud de unión manualmente. Los
+    miembros del grupo pueden encontrar el ID al final de la información del grupo (se puede copiar tocando)</p>
+  <input type="text" name="groupID" id="groupID" placeholder="ID del grupo" [(ngModel)]="groupID">
+  <button (click)="joinGroup()">Enviar solicitud</button>
+  <h2>{{ groupID }}</h2>
+</div>
