@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "grupoId": 1,
+        "preguntaId": 1,
+        "fecha": "2025-07-13"
+    },
+    {
+        "id": 2,
+        "grupoId": 2,
+        "preguntaId": 2,
+        "fecha": "2025-07-13"
+    },
+    {
+        "id": 3,
+        "grupoId": 3,
+        "preguntaId": 8,
+        "fecha": "2025-07-13"
+    },
+    {
+        "id": 4,
+        "grupoId": 4,
+        "preguntaId": 3,
+        "fecha": "2025-07-13"
+    }
+]

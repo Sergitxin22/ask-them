@@ -1,0 +1,55 @@
+[
+  {
+    "id": 1,
+    "usuarioId": 1,
+    "grupoId": 1,
+    "preguntaId": 1,
+    "respuesta": "Cuando mi abuelo me enseñó a andar en bicicleta en el parque",
+    "fecha": "2025-07-13"
+  },
+  {
+    "id": 2,
+    "usuarioId": 2,
+    "grupoId": 1,
+    "preguntaId": 2,
+    "respuesta": "",
+    "usuariosSeleccionados": [
+      3
+    ],
+    "fecha": "2025-07-13"
+  },
+  {
+    "id": 3,
+    "usuarioId": 3,
+    "grupoId": 1,
+    "preguntaId": 2,
+    "respuesta": "",
+    "usuariosSeleccionados": [
+      1
+    ],
+    "fecha": "2025-07-13"
+  },
+  {
+    "id": 4,
+    "usuarioId": 1,
+    "grupoId": 2,
+    "preguntaId": 8,
+    "respuesta": "",
+    "usuariosSeleccionados": [
+      4,
+      5
+    ],
+    "fecha": "2025-07-13"
+  },
+  {
+    "id": 5,
+    "usuarioId": 4,
+    "grupoId": 2,
+    "preguntaId": 8,
+    "respuesta": "",
+    "usuariosSeleccionados": [
+      5
+    ],
+    "fecha": "2025-07-13"
+  }
+]

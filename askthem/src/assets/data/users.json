@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "username": "lucia.gutierrez",
+    "password": "password123",
+    "monedas": 45
+  },
+  {
+    "id": 2,
+    "username": "maria.garcia",
+    "password": "password456",
+    "monedas": 32
+  },
+  {
+    "id": 3,
+    "username": "juan.lopez",
+    "password": "password789",
+    "monedas": 320
+  },
+  {
+    "id": 4,
+    "username": "ana.martinez",
+    "password": "password012",
+    "monedas": 132
+  },
+  {
+    "id": 5,
+    "username": "carlos.rodriguez",
+    "password": "password345",
+    "monedas": 30202
+  }
+]

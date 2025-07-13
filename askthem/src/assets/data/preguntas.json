@@ -1,0 +1,77 @@
+[
+  {
+    "id": 1,
+    "pregunta": "¿Cuál es tu recuerdo más bonito de la infancia?",
+    "tipo": "escrita"
+  },
+  {
+    "id": 2,
+    "pregunta": "¿Quién cae siempre en el consumismo?",
+    "tipo": "seleccion-unica"
+  },
+  {
+    "id": 3,
+    "pregunta": "¿Quién es el más dramático del grupo?",
+    "tipo": "seleccion-unica"
+  },
+  {
+    "id": 4,
+    "pregunta": "¿Quién siempre llega tarde?",
+    "tipo": "seleccion-unica"
+  },
+  {
+    "id": 5,
+    "pregunta": "¿Quién es el más aventurero?",
+    "tipo": "seleccion-unica"
+  },
+  {
+    "id": 6,
+    "pregunta": "¿Quién tiene mejor gusto musical?",
+    "tipo": "seleccion-unica"
+  },
+  {
+    "id": 7,
+    "pregunta": "¿Quién es el alma de las fiestas?",
+    "tipo": "seleccion-unica"
+  },
+  {
+    "id": 8,
+    "pregunta": "¿Quiénes creen en teorías conspirativas? ¡Elige todos los que quieras!",
+    "tipo": "seleccion-multiple"
+  },
+  {
+    "id": 9,
+    "pregunta": "¿Quiénes son los más organizados del grupo?",
+    "tipo": "seleccion-multiple"
+  },
+  {
+    "id": 10,
+    "pregunta": "¿Quiénes tienen más probabilidades de sobrevivir en una isla desierta?",
+    "tipo": "seleccion-multiple"
+  },
+  {
+    "id": 11,
+    "pregunta": "Describe tu lugar ideal para vivir",
+    "tipo": "escrita"
+  },
+  {
+    "id": 12,
+    "pregunta": "¿Quién es el más introvertido?",
+    "tipo": "seleccion-unica"
+  },
+  {
+    "id": 13,
+    "pregunta": "¿Quién cocina mejor?",
+    "tipo": "seleccion-unica"
+  },
+  {
+    "id": 14,
+    "pregunta": "¿Quiénes son más propensos a hacer travesuras?",
+    "tipo": "seleccion-multiple"
+  },
+  {
+    "id": 15,
+    "pregunta": "¿Quién siempre olvida cumpleaños?",
+    "tipo": "seleccion-unica"
+  }
+]

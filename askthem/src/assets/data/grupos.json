@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "nombre": "Familia García",
+    "usuarios": [
+      1,
+      2,
+      3
+    ]
+  },
+  {
+    "id": 2,
+    "nombre": "Amigos del Trabajo",
+    "usuarios": [
+      1,
+      4,
+      5
+    ]
+  },
+  {
+    "id": 3,
+    "nombre": "Compañeros de Universidad",
+    "usuarios": [
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  {
+    "id": 4,
+    "nombre": "Grupo de Estudio",
+    "usuarios": [
+      1,
+      2
+    ]
+  }
+]
