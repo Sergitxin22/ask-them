@@ -1,0 +1,74 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.logo-text {
+  font-size: 28px;
+  font-weight: bold;
+  color: white;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+}
+
+.counter {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 25px;
+  padding: 8px 15px;
+  display: flex;
+  align-items: center;
+  margin-right: 5px;
+  color: white;
+}
+
+.counter-number {
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.counter-icon {
+  width: 24px;
+  height: 24px;
+  color: white;
+}
+
+.settings-icon {
+  width: 40px;
+  height: 40px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Asegurar que el SVG llene el contenedor */
+.settings-icon>div {
+  width: 60%;
+  height: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

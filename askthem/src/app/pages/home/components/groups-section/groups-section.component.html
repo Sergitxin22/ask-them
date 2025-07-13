@@ -1,0 +1,16 @@
+<div class="groups-section">
+  <div class="section-title">
+    <span class="section-title-icon">
+      <div [innerHTML]="'assets/images/users.svg' | svg | async"></div>
+    </span>
+    <span>Tus grupos</span>
+  </div>
+
+  @for (item of items; let idx = $index; track idx) {
+  <app-group-card [titulo]="item" [racha]="idx+1"></app-group-card>
+  }
+  <!-- <app-group-card></app-group-card>
+  <app-group-card></app-group-card>
+  <app-group-card></app-group-card>
+  <app-group-card></app-group-card> -->
+</div>
